@@ -1,0 +1,22 @@
+{
+  "name": "ecommerce-backend-api",
+  "version": "1.0.0",
+  "description": "E-Commerce Backend REST API built with Node.js and Express.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["ecommerce", "rest-api", "express", "nodejs"],
+  "author": "Tanveer",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

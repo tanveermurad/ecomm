@@ -1,0 +1,222 @@
+{
+  "info": {
+    "name": "E-Commerce Backend API",
+    "description": "Collection for testing the Node.js/Express E-Commerce Backend REST API. Set the collection variables baseUrl and apiKey before running.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "apiKey", "value": "my-secret-api-key-123" },
+    { "key": "userId", "value": "" },
+    { "key": "productId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users - Success",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/users"
+          }
+        },
+        {
+          "name": "Get Single User - Success",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/users/{{userId}}"
+          }
+        },
+        {
+          "name": "Get Single User - Error (Not Found)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/users/non-existent-id"
+          }
+        },
+        {
+          "name": "Add User - Success",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/users?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bilal Ahmed\",\n  \"email\": \"bilal.ahmed@example.com\",\n  \"role\": \"customer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add User - Error (Missing API Key)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/users",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bilal Ahmed\",\n  \"email\": \"bilal.ahmed@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add User - Error (Validation - Bad Email)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/users?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bilal Ahmed\",\n  \"email\": \"not-an-email\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update User - Success",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/users/{{userId}}?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bilal Ahmed Updated\",\n  \"email\": \"bilal.updated@example.com\",\n  \"role\": \"admin\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update User - Error (Invalid API Key)",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/users/{{userId}}?apiKey=wrong-key",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bilal Ahmed\",\n  \"email\": \"bilal@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete User - Success",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/users/{{userId}}?apiKey={{apiKey}}"
+          }
+        },
+        {
+          "name": "Delete User - Error (Not Found)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/users/non-existent-id?apiKey={{apiKey}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products - Success",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products"
+          }
+        },
+        {
+          "name": "Get All Products - Filter by Category",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products?category=Electronics"
+          }
+        },
+        {
+          "name": "Get Single Product - Success",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products/{{productId}}"
+          }
+        },
+        {
+          "name": "Get Single Product - Error (Not Found)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/products/non-existent-id"
+          }
+        },
+        {
+          "name": "Add Product - Success",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/products?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bluetooth Speaker\",\n  \"price\": 3499,\n  \"category\": \"Electronics\",\n  \"stock\": 50,\n  \"description\": \"Portable speaker with 12-hour battery life.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Product - Error (Missing API Key)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/products",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bluetooth Speaker\",\n  \"price\": 3499,\n  \"category\": \"Electronics\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Product - Error (Validation - Bad Price)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/products?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bluetooth Speaker\",\n  \"price\": -10,\n  \"category\": \"Electronics\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product - Success",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/products/{{productId}}?apiKey={{apiKey}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bluetooth Speaker Pro\",\n  \"price\": 3999,\n  \"category\": \"Electronics\",\n  \"stock\": 40\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product - Error (Invalid API Key)",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/products/{{productId}}?apiKey=wrong-key",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bluetooth Speaker\",\n  \"price\": 3999,\n  \"category\": \"Electronics\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Product - Success",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/products/{{productId}}?apiKey={{apiKey}}"
+          }
+        },
+        {
+          "name": "Delete Product - Error (Not Found)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/products/non-existent-id?apiKey={{apiKey}}"
+          }
+        }
+      ]
+    }
+  ]
+}
